@@ -6,8 +6,8 @@ from threading import Thread
 overwrite=''
 
 
-BOARD_ROWS = 13
-BOARD_COLS = 13
+BOARD_ROWS = 15
+BOARD_COLS = 15
 lengte_winnen=5
 
 class State:
@@ -299,14 +299,14 @@ class Player:
         self.states = []
 
     def savePolicy(self):
-        fw = open('policy_' + str(self.name), 'ab')
+        fw = open('policy_' + str(self.name), 'wb')
         pickle.dump(self.states_value, fw)
         print("opgeslagen")
         fw.close()
     def savePolicy_overwrite(self):
         fw = open('policy_' + str(self.name), 'wb')
-        pickle.dump(self.states_value, fw)
-        print("opgeslagen en oversschreven")
+        pickle.dump('', fw)
+        print("oversschreven")
         fw.close()
 
     def loadPolicy(self, file):
@@ -362,10 +362,10 @@ def thread_trainer():
         else:
             print("data van vorige training behouden")
         print("training_thread")
-        
-        st.play(50000)
-        p1.savePolicy()
-        p2.savePolicy()
+        while True:
+            st.play(10000)
+            p1.savePolicy()
+            p2.savePolicy()
         
         #print("thread_training beeindigd.")
 
@@ -402,10 +402,10 @@ if __name__ == "__main__":
     else:
         print("data van vorige training behouden")
     print("training...")
-    
-    #st.play(50000)
-    #p1.savePolicy()
-    #p2.savePolicy()
+    while True:
+        st.play(10000)
+        p1.savePolicy()
+        p2.savePolicy()
         
     print("klaar met training")
     # play with human
