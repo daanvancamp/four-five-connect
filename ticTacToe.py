@@ -6,9 +6,9 @@ from threading import Thread
 overwrite=''
 
 
-BOARD_ROWS = 15
-BOARD_COLS = 15
-lengte_winnen=5
+BOARD_ROWS = 11
+BOARD_COLS = 11
+lengte_winnen=4
 
 class State:
     
@@ -299,7 +299,7 @@ class Player:
         self.states = []
 
     def savePolicy(self):
-        fw = open('policy_' + str(self.name), 'wb')
+        fw = open('policy_' + str(self.name), 'ab')
         pickle.dump(self.states_value, fw)
         print("opgeslagen")
         fw.close()
@@ -355,32 +355,32 @@ def thread_trainer():
         p1 = Player("p1")
         p2 = Player("p2")
         st = State(p1, p2)
-        if overwrite==True:
-            p1.savePolicy_overwrite()#schrijf alle data naar daar met wb
-            p2.savePolicy_overwrite()#schrijf alle data naar daar met wb
-            print("data van vorige trainingen weggegooid")
-        else:
-            print("data van vorige training behouden")
-        print("training_thread")
-        while True:
-            st.play(10000)
+        #if overwrite==True:
+            #p1.savePolicy_overwrite()#schrijf alle data naar daar met wb
+            #p2.savePolicy_overwrite()#schrijf alle data naar daar met wb
+            #print("data van vorige trainingen weggegooid")
+        #else:
+            #print("data van vorige training behouden")
+        print("training_threads...")
+        for i in range(5000000):
+            st.play(50000)
             p1.savePolicy()
             p2.savePolicy()
         
         #print("thread_training beeindigd.")
 
 if __name__ == "__main__":
-    while overwrite=='':
-            try:
-                invoer=int(input("Geef 1 voor overschrijven en 0 voor behouden vorige data    "))
-                if invoer==1:
-                    overwrite=True
-                elif invoer==0:
-                    overwrite=False
-                else:
-                    continue
-            except:
-                print("geef een integer")
+    #while overwrite=='':
+            #try:
+                #invoer=int(input("Geef 1 voor overschrijven en 0 voor behouden vorige data    "))
+                #if invoer==1:
+                    #overwrite=True
+                #elif invoer==0:
+                    #overwrite=False
+                #else:
+                    #continue
+            #except:
+                #print("geef een integer")
     # training
     thread_training2=Thread(target=thread_trainer,daemon=True)
     thread_training2.start()
@@ -388,22 +388,29 @@ if __name__ == "__main__":
     thread_training3.start()
     thread_training4=Thread(target=thread_trainer,daemon=True)
     thread_training4.start()
+    thread_training5=Thread(target=thread_trainer,daemon=True)
+    thread_training5.start()
+    thread_training6=Thread(target=thread_trainer,daemon=True)
+    thread_training6.start()
+    thread_training7=Thread(target=thread_trainer,daemon=True)
+    thread_training7.start()
+    thread_training8=Thread(target=thread_trainer,daemon=True)
+    thread_training8.start()
+    thread_training9=Thread(target=thread_trainer,daemon=True)
+    thread_training9.start()
+    thread_training10=Thread(target=thread_trainer,daemon=True)
+    thread_training10.start()
+
     
     
     
     p1 = Player("p1")
     p2 = Player("p2")
     st = State(p1, p2)
-
-    if overwrite==True:
-        p1.savePolicy_overwrite()#schrijf alle data naar daar met wb
-        p2.savePolicy_overwrite()#schrijf alle data naar daar met wb
-        print("data van vorige trainingen weggegooid")
-    else:
-        print("data van vorige training behouden")
+    
     print("training...")
-    while True:
-        st.play(10000)
+    for i in range(5000000):
+        st.play(50000)
         p1.savePolicy()
         p2.savePolicy()
         
